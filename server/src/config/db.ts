@@ -11,6 +11,11 @@ const connectDB = async () => {
     process.exit(1);
   }
 
+  // Debug: Log masked URI to check if it's localhost or Atlas
+  const maskedUri = uri.replace(/\/\/.*@/, '//****:****@');
+  console.log(`📡 Attempting to connect to: ${uri.includes('localhost') ? 'LOCALHOST (Error!)' : 'REMOTE DATABASE'}`);
+  console.log(`🔗 URI Masked: ${maskedUri}`);
+
   try {
     const conn = await mongoose.connect(uri);
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
