@@ -1,0 +1,30 @@
+services:
+  # Backend Server
+  - type: web
+    name: quickhire-api
+    env: node
+    region: ohio
+    plan: free
+    rootDir: server
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: PORT
+        value: 5000
+
+  # Frontend Client
+  - type: web
+    name: quickhire-frontend
+    env: node
+    region: ohio
+    plan: free
+    rootDir: client
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        value: https://quickhire-api.onrender.com/api
